@@ -6,26 +6,110 @@
     <title>Function Fitting</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
+        /* 通用样式 */
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
         }
-        .controls {
-            margin-bottom: 20px;
-        }
-        .plot-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        .plot-wrapper {
-            width: 45%;
+
+        h1 {
             text-align: center;
+            margin: 20px 0;
+            color: #3451b2;
         }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .controls input {
+            margin-left: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #3451b2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .controls button:hover {
+            background-color: #002397;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-collapse: separate;
+            border-spacing: 20px;
+        }
+
+        td {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         .plot-title {
-            margin-bottom: 10px;
             font-size: 16px;
             font-weight: bold;
+            color: #3451b2;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .plot {
+            width: 100%;
+            height: 300px;
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 768px) {
+            table {
+                width: 90%;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            td {
+                padding: 10px;
+            }
+
+            .plot {
+                height: 250px;
+            }
         }
     </style>
     <!-- 提供latex公式显示支持 -->
@@ -41,9 +125,9 @@
 </head>
 <body>
     <h1>本征函数系拟合函数</h1>
-    <p>
+    <div class="controls">
         用本征函数系$X_n(x)$的前n项拟合特定函数$f(x)$，具体的拟合表达式和绘图代码在<a href="https://jingliangwei.github.io/blog/hw/fit.html">这里</a>。
-    </p>
+    </div>
     <div class="controls">
         <label>
             $l$ (函数自变量范围):
@@ -59,40 +143,44 @@
         </label>
         <button onclick="plotGraphs()">绘制</button>
     </div>
-    </div>
-    <div class="plot-container">
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\sin\frac{n\pi}l x \rightarrow f(x)=1$</div>
-            <div id="plot1" class="plot"></div>
-        </div>
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\sin\frac{n\pi}l x \rightarrow f(x)=-x^2+lx$</div>
-            <div id="plot2" class="plot"></div>
-        </div>
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\sin\frac{2n+1}2l \pi x \rightarrow f(x)=1$</div>
-            <div id="plot3" class="plot"></div>
-        </div>
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\sin\frac{2n+1}2l \pi x \rightarrow f(x)=-x^2+lx$</div>
-            <div id="plot4" class="plot"></div>
-        </div>
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\cos\frac{n\pi}l x \rightarrow f(x)=1$</div>
-            <div id="plot5" class="plot"></div>
-        </div>
-        <div class="plot-wrapper">
-            <div class="plot-title">$X_n(x)=\cos\frac{n\pi}l x \rightarrow f(x)=-x^2+lx$</div>
-            <div id="plot6" class="plot"></div>
-        </div>
-    </div>
+
+    <table>
+        <tr>
+            <td>
+                <div class="plot-title">$X_n(x)=\sin\frac{n\pi}l x \rightarrow f(x)=1$</div>
+                <div id="plot1" class="plot"></div>
+            </td>
+            <td>
+                <div class="plot-title">$X_n(x)=\sin\frac{n\pi}l x \rightarrow f(x)=-x^2+lx$</div>
+                <div id="plot2" class="plot"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="plot-title">$X_n(x)=\sin\frac{2n+1}{2l} \pi x \rightarrow f(x)=1$</div>
+                <div id="plot3" class="plot"></div>
+            </td>
+            <td>
+                <div class="plot-title">$X_n(x)=\sin\frac{2n+1}{2l} \pi x \rightarrow f(x)=-x^2+lx$</div>
+                <div id="plot4" class="plot"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="plot-title">$X_n(x)=\cos\frac{n\pi}l x \rightarrow f(x)=1$</div>
+                <div id="plot5" class="plot"></div>
+            </td>
+            <td>
+                <div class="plot-title">$X_n(x)=\cos\frac{n\pi}l x \rightarrow f(x)=-x^2+lx$</div>
+                <div id="plot6" class="plot"></div>
+            </td>
+        </tr>
+    </table>
 
     <script>
-        // 定义待拟合函数
         const fx1 = (x, l) => Array(x.length).fill(1);
         const fx2 = (x, l) => x.map(xi => -xi * xi + l * xi);
 
-        // 定义拟合函数
         const fit11 = (n, x, l) => {
             let y = Array(x.length).fill(0);
             for (let i = 1; i <= n; i++) {
@@ -142,7 +230,6 @@
             return y;
         };
 
-        // 绘图函数
         const plotGraphs = () => {
             const l = parseFloat(document.getElementById("l-input").value);
             const ns = document.getElementById("n-input").value.split(",").map(Number);
@@ -174,15 +261,11 @@
                 ];
 
                 Plotly.newPlot(id, traces, {
-                    xaxis: { title: "x" },
-                    yaxis: { title: "y" },
-                    showlegend: true,
-                    plot_bgcolor: "#fff",
+                    margin: { t: 0 },
                 });
             });
         };
 
-        // 初始绘图
         plotGraphs();
     </script>
 </body>
